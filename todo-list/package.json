@@ -1,0 +1,45 @@
+{
+  "name": "node-courses-todo",
+  "private": true,
+  "dependencies": {
+    "dotenv": "^8.6.0",
+    "jstodotxt": "git+https://github.com/jmhobbs/jsTodoTxt.git#0.10.0",
+    "koa": "^2.13.4",
+    "koa-body": "^4.2.0",
+    "koa-passport": "^4.1.4",
+    "koa-router": "^9.4.0",
+    "koa-session": "^6.2.0",
+    "koa-static": "^5.0.0",
+    "mongodb": "^3.7.3",
+    "passport": "^0.4.1",
+    "passport-google-oauth": "^2.0.0",
+    "passport-google-oauth20": "^2.0.0",
+    "todomvc-app-css": "^2.4.1",
+    "todomvc-common": "^1.0.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "chai": "^4.3.4",
+    "jasmine-core": "^2.0.0",
+    "migrate-mongo": "^8.2.3",
+    "mocha": "^8.4.0",
+    "nodemon": "^2.0.15",
+    "nyc": "^15.1.0",
+    "sinon": "^9.2.4",
+    "standard": "^14.3.4",
+    "supertest": "^4.0.2"
+  },
+  "scripts": {
+    "coverage": "nyc npm test",
+    "lint": "standard --fix \"src/**/*.js\"",
+    "start": "node src/index.js",
+    "check-homework": "node ./check-homework/get-code.js",
+    "test": "mocha --recursive --timeout=10000 test/index.js test",
+    "test-watch": "mocha --recursive --watch --timeout=10000 test/index.js test",
+    "watch": "nodemon src/index.js"
+  },
+  "standard": {
+    "parser": "babel-eslint"
+  }
+}

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en" data-framework="javascript">
+	<head>
+		<meta charset="utf-8">
+		<title>TODO для курсов Node.js</title>
+		<link rel="stylesheet" href="todomvc-common/base.css">
+		<link rel="stylesheet" href="todomvc-app-css/index.css">
+		<style>
+      .footer {
+        height: auto;
+        text-align: left;
+        line-height: 1.5;
+      }
+
+      .footer a,
+      .footer button {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .footer a:hover,
+      .footer button:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      .footer::before {
+        z-index: -1;
+      }
+
+      .filters,
+		  .todo-count,
+		  .clear-completed,
+		  html .clear-completed:active,
+		  .export-btn,
+		  .import-form {
+		    display: inline-block;
+		    float: none;
+		    position: static;
+		    margin-right: 1em;
+		  }
+
+		  input[type="file"] {
+		    display: none;
+		  }
+		</style>
+	</head>
+	<body>
+		<section class="todoapp">
+			<header class="header">
+				<h1>список дел</h1>
+				<input class="new-todo" placeholder="Что нужно сделать?" autofocus>
+			</header>
+			<section class="main">
+				<input id="toggle-all" class="toggle-all" type="checkbox">
+				<label for="toggle-all">Отметить все задачи как завершенные</label>
+				<ul class="todo-list"></ul>
+			</section>
+			<footer class="footer">
+			  <div>
+  			  <span class="todo-count"></span>
+  				<button class="clear-completed">удалить завершенные</button>  
+			  </div>
+			  <div>
+			    показать:
+			    <ul class="filters">
+  					<li>
+  						<a href="#/" class="selected">все</a>
+  					</li>
+  					<li>
+  						<a href="#/active">активные</a>
+  					</li>
+  					<li>
+  						<a href="#/completed">завершенные</a>
+  					</li>
+  				</ul>
+			  </div>
+				<div>
+  				<a class="export-btn" href="/api/v1/todos?contentType=todotxt" download="todo.txt">экспорт todo.txt</a>
+  				<form class="import-form" method="POST" enctype="multipart/form-data" action="/api/v1/todos">
+  				  <input name="contentType" type="hidden" value="todotxt" />
+            <input name="todotxt" type="file" id="import-file-input" />
+            <button
+              id="import-file-btn"
+              type="button"
+              onclick="">импорт todo.txt...</button>
+  				</form>
+				</div>
+			</footer>
+		</section>
+		<footer class="info">
+      <p>
+        Вы вошли как <span class="my-name"></span>.
+        <a href='/logout'>Выйти</a>
+      </p>
+			<p>Приложение написано на основе проекта <a href="http://todomvc.com">TodoMVC</a></p>
+			<p>Автор оригинального приложения: <a href="http://twitter.com/oscargodson">Oscar Godson</a></p>
+			<p>Рефакторинг оригинального приложения: <a href="https://github.com/cburgmer">Christoph Burgmer</a></p>
+		</footer>
+		<script src="js/helpers.js"></script>
+		<script src="js/store.js"></script>
+		<script src="js/model.js"></script>
+		<script src="js/template.js"></script>
+		<script src="js/view.js"></script>
+		<script src="js/controller.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>
