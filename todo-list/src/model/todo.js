@@ -97,6 +97,7 @@ function getTodo (query) {
     - Используйте функцию _mapObjectId(<параметры запроса>), чтобы преобразовать идентификатор записи
       к объекту ObjectID в MongoDB.
   */
+  return col.findOne(_mapObjectId(query))
 }
 
 /**
