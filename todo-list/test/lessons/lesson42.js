@@ -10,7 +10,7 @@ const {
 const request = require('supertest')
 const app = require('../../src/server.js')
 
-describe('Урок 4.2', () => {
+describe.only('Урок 4.2', () => {
   let collection
 
   before(async () => {
@@ -44,7 +44,6 @@ describe('Урок 4.2', () => {
         const todo = { foo: uuid() }
         const insertedId = await createTodo(todo)
         const savedTodo = await collection.findOne()
-
         expect(savedTodo._id).to.deep.equal(insertedId)
       })
     })

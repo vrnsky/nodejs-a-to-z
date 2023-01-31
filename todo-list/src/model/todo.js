@@ -52,6 +52,9 @@ async function createTodo (data) {
     Используйте функцию col.insertOne [http://mongodb.github.io/node-mongodb-native/3.5/api/Collection.html#insertOne]:
       await col.insertOne(<описание нового документа>)
   */
+  const col = dbConnection.getCollection(COLLECTION)
+  const result = await col.insertOne(data);
+  return result.insertedId;
 }
 
 /**
