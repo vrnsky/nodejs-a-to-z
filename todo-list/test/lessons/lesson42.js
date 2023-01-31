@@ -10,7 +10,7 @@ const {
 const request = require('supertest')
 const app = require('../../src/server.js')
 
-describe.only('Урок 4.2', () => {
+describe('Урок 4.2', () => {
   let collection
 
   before(async () => {

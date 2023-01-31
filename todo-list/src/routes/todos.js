@@ -150,6 +150,8 @@ router.delete('/:id', totalMiddleware, async (ctx, next) => {
 
 // Обновление записи с указанным идентификатором
 router.patch('/:id', koaBody(), totalMiddleware, async (ctx, next) => {
+    const todo = parseTodo(ctx.request.body);
+    console.log(todo)
     const result = await updateTodo({
         _id: ctx.params.id
         /*
@@ -160,6 +162,7 @@ router.patch('/:id', koaBody(), totalMiddleware, async (ctx, next) => {
           TODO [Урок 4.3]: Заполните поля, которые необходимо обновить.
           Получите новые значения полей в объекте `ctx.request.body`
         */
+        title: todo.title
     })
     if (!result) {
         throw new NotFoundError(`todo with ID ${ctx.params.id} is not found`)

@@ -124,6 +124,10 @@ async function updateTodo (query, data) {
     Подсказка: используйте поле `result` из результата выполнения функции col.updateOne,
     чтобы выяснить, успешно ли выполнено обновление записи базе данных?
    */
+
+  console.log(query)
+  const result = await col.updateOne(_mapObjectId(query), { $set: data });
+  return result.result.nModified > 0;
 }
 
 /**
