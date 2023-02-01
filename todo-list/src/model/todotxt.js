@@ -12,6 +12,9 @@ function exportTodoTxt (todo) {
 
     Используйте значения аргумента todo, чтобы заполнить поля объекта todotxt
   */
+  todotxt.text = todo.title
+  todotxt.complete = todo.completed === true
+  todotxt.completed = todo.completed === true ? todo.completedAt : null
   return todotxt.toString() + '\n'
 }
 

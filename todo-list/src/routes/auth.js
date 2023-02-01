@@ -12,7 +12,7 @@ router.get('/profile', apiAuth, async (ctx, next) => {
   /*
     TODO [Урок 5.2]: Верните в поле ctx.body.email - реальный email-адрес пользователя
   */
-  ctx.body = { email: 'анонимный пользователь' }
+  ctx.body = { email: ctx.state.user.email }
 })
 
 // маршрут для выполнения аутентификации через Google

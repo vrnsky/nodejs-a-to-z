@@ -73,6 +73,8 @@ async function deleteTodo (query) {
     Подсказка: используйте поле `result` из результата выполнения функции col.updateOne,
     чтобы выяснить, успешно ли выполнено удаление записи из базы данных?
   */
+  const result = await col.deleteOne(_mapObjectId(query))
+  return result.result.n > 0
 }
 
 /**
@@ -149,6 +151,10 @@ async function createTodosFromText (filePath, email) {
 
     Верните массив созданных записей списка дел
   */
+  const result = await col.insertMany(todos.map(todo => ({
+    ...todo, email
+  })))
+  return result.ops
 }
 
 /**

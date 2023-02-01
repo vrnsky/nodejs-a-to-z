@@ -63,8 +63,8 @@ router.use(apiAuth)
 
 // Получение списка задач. Фильтры задаются параметрами GET-запроса
 router.get('/', totalMiddleware, async (ctx, next) => {
-    const {contentType} = ctx.query
-    let filter = Object.entries(ctx.query)
+    const { contentType, ...query } = ctx.query
+    let filter = Object.entries(query)
 
         .reduce((result, [key, value]) => {
 
@@ -72,7 +72,9 @@ router.get('/', totalMiddleware, async (ctx, next) => {
 
             return result;
 
-        }, {});
+        }, {
+            email: ctx.state.user.email
+        });
     /*
       TODO [Урок 5.3]: Добавьте фильтр по email-адреса пользователя при получении записей из БД
     */
@@ -91,7 +93,7 @@ router.get('/', totalMiddleware, async (ctx, next) => {
 // Получение одной записи из списка дел по идентификатору
 router.get('/:id', async (ctx, next) => {
     const result = await getTodo({
-        _id: ctx.params.id
+        _id: ctx.params.id,
         /*
           TODO [Урок 4.1]: Реализуйте фильтр записей списка дел по идентификатору.
 
@@ -100,6 +102,7 @@ router.get('/:id', async (ctx, next) => {
         /*
           TODO [Урок 5.3]: Добавьте фильтр по email-адреса пользователя при получении записей из БД
         */
+        email: ctx.state.user.email
     })
     if (!result) {
         throw new NotFoundError(`Todo with id ${ctx.params.id} is not found`)
@@ -124,7 +127,11 @@ router.post('/', koaBody({multipart: true}), totalMiddleware, async (ctx, next) 
         return
     }
 
-    const todo = parseTodo(ctx.request.body)
+    const todo = {
+        ...parseTodo(ctx.request.body),
+        email: ctx.state.user.email
+    }
+
     /*
       TODO [Урок 5.3]: Добавьте email-адрес пользователя при создании записи в списке дел
       todo.email = ...
@@ -137,10 +144,11 @@ router.post('/', koaBody({multipart: true}), totalMiddleware, async (ctx, next) 
 // Удаление записи по идентификатору
 router.delete('/:id', totalMiddleware, async (ctx, next) => {
     const result = await deleteTodo({
-        _id: ctx.params.id
+        _id: ctx.params.id,
         /*
           TODO [Урок 5.3]: Добавьте проверку email-адреса пользователя при удалении записей из БД
         */
+        email: ctx.state.user.email
     })
     if (!result) {
         throw new NotFoundError(`todo with ID ${ctx.params.id} is not found`)
@@ -153,10 +161,11 @@ router.patch('/:id', koaBody(), totalMiddleware, async (ctx, next) => {
     const todo = parseTodo(ctx.request.body);
     console.log(todo)
     const result = await updateTodo({
-        _id: ctx.params.id
+        _id: ctx.params.id,
         /*
           TODO [Урок 5.3]: Добавьте проверку email-адреса пользователя при обновлении записей в БД
         */
+        email: ctx.state.user.email
     }, {
         /*
           TODO [Урок 4.3]: Заполните поля, которые необходимо обновить.

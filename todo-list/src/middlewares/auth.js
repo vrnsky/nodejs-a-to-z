@@ -1,5 +1,6 @@
 const auth = require('../model/auth')
 const { AuthenticationError } = require('../model/errors')
+const {redirect} = require("koa/lib/response");
 
 /**
  * Middleware для проверки авторизации запросов к API
@@ -26,6 +27,10 @@ async function viewAuth (ctx, next) {
       Подсказка: для непрошедших аутентификацию пользователей переменная err будет иметь тип AuthenticationError
       (`err instanceof AuthenticationError` ==> true)
     */
+    console.log(err)
+    if (err instanceof AuthenticationError) {
+      return ctx.redirect('/login')
+    }
     throw err
   }
 
