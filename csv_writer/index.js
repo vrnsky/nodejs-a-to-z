@@ -1,20 +1,10 @@
-import { writeFileSync } from "fs"
 import { appendFileSync } from "fs"
 import { createInterface } from "readline"
+import prompt from "prompt"
 
-const content = "Test content"
-const readline = createInterface({
-    input: process.stdin,
-    output: process.stdout
-})
+prompt.start()
+prompt.message = "";
 
-const readLineAsync = message => {
-    return new Promise(resolve => {
-        readline.question(message, answer => {
-            resolve(answer)
-        })
-    })
-}
 
 class Person {
     constructor(name = "", number = "", email = "") {
@@ -35,13 +25,29 @@ class Person {
 
 const startApp = async () => {
     const person = new Person()
-    person.name = await readLineAsync("Contact Name: ")
-    person.number = await readLineAsync("Contact Number: ")
-    person.email = await readLineAsync("Contact Email: ")
+    const responses = await prompt.get([
+        {
+            name: "name",
+            description: "Contact Name"
+        },
+        {
+            name: "number",
+            description: "Contact Number"
+        },
+        {
+            name: "email",
+            description: "Contact Email"
+        }
+    ])
+    Object.assign(person, responses)
     person.saveToCSV()
-    const response = await readLineAsync("Continue? [y to continue]: ")
-    if (response === "y") await startApp()
-    else readline.close()
+    const { again } = await prompt.get([
+        {
+            name: "again",
+            description: "Continue? [y to continue]"
+        }
+    ])
+    if (again === "y") await startApp()
 }
 
 startApp()
