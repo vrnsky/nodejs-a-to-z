@@ -18,5 +18,5 @@ app.get("/hours", (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log(`Web Server is listenning at localhost:${port}`)
+    console.log(`Web Server is listening at localhost:${port}`)
 })
