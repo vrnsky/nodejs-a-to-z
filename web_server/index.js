@@ -3,18 +3,28 @@ import workingHours from "./data/workingHours.js";
 import menuItems from "./data/menuItems.js";
 
 const app = express()
+app.set("view engine", "ejs")
 const port = 3000
 
 app.get("/", (req, res) => {
-    res.send("Welcome to What's Fare is Fair!")
+    res.render("index", {name: "Welcome to What's Fare is Fair!"})
 })
 
 app.get("/menu", (req, res) => {
-    res.send(menuItems)
+    res.render("menu", {menuItems})
 })
 
 app.get("/hours", (req, res) => {
-    res.send(workingHours)
+    const days = [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday"
+    ];
+    res.render("hours", {workingHours, days})
 })
 
 app.listen(port, () => {
