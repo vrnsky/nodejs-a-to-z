@@ -1,10 +1,18 @@
-import { appendFileSync } from "fs"
-import { createInterface } from "readline"
+import { createObjectCsvWriter } from "csv-writer";
 import prompt from "prompt"
 
 prompt.start()
 prompt.message = "";
 
+const cswWriter = createObjectCsvWriter({
+    path: "./contacts.csv",
+    append: true,
+    header: [
+        { id: "name", title: "NAME" },
+        { id: "number", title: "NUMBER" },
+        { id: "email", title: "EMAIL" }
+    ]
+})
 
 class Person {
     constructor(name = "", number = "", email = "") {
@@ -14,9 +22,10 @@ class Person {
     }
 
     saveToCSV() {
-        const content = `${this.name},${this.number},${this.email}`
         try {
-            appendFileSync("./contacts.csv", content)
+            const {name, number, email} = this
+            cswWriter.writeRecords([{name, number, email}])
+            console.log(`${name} Saved!`)
         } catch (err) {
             console.error(err)
         }
