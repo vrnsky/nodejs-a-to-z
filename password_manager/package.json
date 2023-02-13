@@ -10,6 +10,7 @@
   "author": "Egor Voronianskii",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.1.0"
+    "bcrypt": "^5.1.0",
+    "prompt-sync": "^4.2.0"
   }
 }
